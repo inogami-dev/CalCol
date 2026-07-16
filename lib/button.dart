@@ -29,51 +29,35 @@ class _ButtonState extends State<Button> {
 
   @override
   Widget build(BuildContext context) {
-    return 
-      Column(
-        children: [
-          // Display
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(20),
-            alignment: Alignment.bottomRight,
-            child: const Text(
-              "0",
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-            ),
-          ),
-
-          // Buttons
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(10),
-              itemCount: buttons.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+    return
+    // Buttons
+    Container(
+      width: 260,
+      height: 300,
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      child: GridView.builder(
+        padding: const EdgeInsets.all(10),
+        itemCount: buttons.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemBuilder: (context, index) {
+          return ElevatedButton(
+            onPressed: () {
+              print(buttons[index]);
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
               ),
-              itemBuilder: (context, index) {
-                return ElevatedButton(
-                  onPressed: () {
-                    print(buttons[index]);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    padding: const EdgeInsets.all(20),
-                  ),
-                  child: Text(
-                    buttons[index],
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                );
-              },
+              padding: const EdgeInsets.all(20),
             ),
-          ),
-        ],
-      );
-    
+            child: Text(buttons[index], style: const TextStyle(fontSize: 24)),
+          );
+        },
+      ),
+    );
   }
 }
