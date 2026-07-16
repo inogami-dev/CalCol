@@ -14,7 +14,7 @@ class _CalculatorBodyState extends State<CalculatorBody> {
   Widget build(BuildContext context) {
     return Container(
       width: 300,
-      height: 450,
+      height: 420,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colors.grey.shade800,
@@ -59,7 +59,7 @@ class _CalculatorBodyState extends State<CalculatorBody> {
           OutputScreen(
             child: Text("Result", style: TextStyle(color: Colors.white60)),
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 16),
           Button(),
         ],
       ),

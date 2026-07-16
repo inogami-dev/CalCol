@@ -33,7 +33,7 @@ class _ButtonState extends State<Button> {
     // Buttons
     Container(
       width: 260,
-      height: 300,
+      height: 250,
       margin: EdgeInsets.symmetric(horizontal: 10),
       child: GridView.builder(
         padding: const EdgeInsets.all(10),
@@ -54,7 +54,7 @@ class _ButtonState extends State<Button> {
               ),
               padding: const EdgeInsets.all(20),
             ),
-            child: Text(buttons[index], style: const TextStyle(fontSize: 24)),
+            child: Text(buttons[index], style: const TextStyle(fontSize: 20)),
           );
         },
       ),
