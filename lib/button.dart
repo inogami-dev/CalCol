@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
-  const Button({super.key});
+  final Function(String) onPressedButton;
+
+  const Button({super.key, required this.onPressedButton});
 
   @override
   State<Button> createState() => _ButtonState();
@@ -29,49 +31,45 @@ class _ButtonState extends State<Button> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Display
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(20),
-          alignment: Alignment.bottomRight,
-          child: const Text(
-            "0",
-            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-          ),
+    return Container(
+      width: 260,
+      height: 250,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      child: GridView.builder(
+        padding: const EdgeInsets.all(10),
+        itemCount: buttons.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
         ),
-
-        // Buttons
-        Expanded(
-          child: GridView.builder(
-            padding: const EdgeInsets.all(10),
-            itemCount: buttons.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            itemBuilder: (context, index) {
-              return ElevatedButton(
-                onPressed: () {
-                  print(buttons[index]);
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  padding: const EdgeInsets.all(20),
-                ),
-                child: Text(
-                  buttons[index],
-                  style: const TextStyle(fontSize: 24),
-                ),
-              );
+        itemBuilder: (context, index) {
+          final buttonText = buttons[index];
+          final buttonWidget = ElevatedButton(
+            onPressed: () {
+              widget.onPressedButton(buttonText);
             },
-          ),
-        ),
-      ],
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              padding: const EdgeInsets.all(20),
+            ),
+            child: Text(buttonText, style: const TextStyle(fontSize: 20)),
+          );
+
+          if (buttonText == 'C') {
+            return GestureDetector(
+              onLongPress: () {
+                widget.onPressedButton('AC');
+              },
+              child: buttonWidget,
+            );
+          }
+
+          return buttonWidget;
+        },
+      ),
     );
   }
 }
