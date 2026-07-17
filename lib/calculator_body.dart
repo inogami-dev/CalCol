@@ -1,4 +1,5 @@
 import 'package:calcol/button.dart';
+import 'package:calcol/calculation.dart';
 import 'package:calcol/output_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,14 @@ class CalculatorBody extends StatefulWidget {
 }
 
 class _CalculatorBodyState extends State<CalculatorBody> {
+  final CalculatorLogic _calculator = CalculatorLogic();
+
+  void _handleButtonPress(String buttonText) {
+    setState(() {
+      _calculator.handleButton(buttonText);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,13 +37,13 @@ class _CalculatorBodyState extends State<CalculatorBody> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Expanded(
+                const Expanded(
                   child: Text(
                     "Calculator Pro",
                     style: TextStyle(
@@ -55,12 +64,15 @@ class _CalculatorBodyState extends State<CalculatorBody> {
               ],
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           OutputScreen(
-            child: Text("Result", style: TextStyle(color: Colors.white60)),
+            child: Text(
+              _calculator.displayText,
+              style: const TextStyle(color: Colors.white60, fontSize: 20),
+            ),
           ),
-          SizedBox(height: 16),
-          Button(),
+          const SizedBox(height: 16),
+          Button(onPressedButton: _handleButtonPress),
         ],
       ),
     );

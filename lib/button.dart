@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
-  const Button({super.key});
+  final Function(String) onPressedButton;
+
+  const Button({super.key, required this.onPressedButton});
 
   @override
   State<Button> createState() => _ButtonState();
@@ -29,12 +31,10 @@ class _ButtonState extends State<Button> {
 
   @override
   Widget build(BuildContext context) {
-    return
-    // Buttons
-    Container(
+    return Container(
       width: 260,
       height: 250,
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: GridView.builder(
         padding: const EdgeInsets.all(10),
         itemCount: buttons.length,
@@ -44,9 +44,10 @@ class _ButtonState extends State<Button> {
           mainAxisSpacing: 10,
         ),
         itemBuilder: (context, index) {
-          return ElevatedButton(
+          final buttonText = buttons[index];
+          final buttonWidget = ElevatedButton(
             onPressed: () {
-              print(buttons[index]);
+              widget.onPressedButton(buttonText);
             },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -54,8 +55,19 @@ class _ButtonState extends State<Button> {
               ),
               padding: const EdgeInsets.all(20),
             ),
-            child: Text(buttons[index], style: const TextStyle(fontSize: 20)),
+            child: Text(buttonText, style: const TextStyle(fontSize: 20)),
           );
+
+          if (buttonText == 'C') {
+            return GestureDetector(
+              onLongPress: () {
+                widget.onPressedButton('AC');
+              },
+              child: buttonWidget,
+            );
+          }
+
+          return buttonWidget;
         },
       ),
     );
